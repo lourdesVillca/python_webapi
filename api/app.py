@@ -11,11 +11,12 @@ def home():
 
 @app.route('/containerInfo', methods=['GET'])
 def api_get_info():
-    container_info = ContainerInfo()
-    return jsonify(container_info.__dict__)
+    container_information = ContainerInfo()
+    return jsonify(container_information.__dict__)
 
 @app.errorhandler(404)
 def page_not_found(e):
     return "<h1>404</h1><p>The resource could not be found.</p>", 404
 
-app.run()
+if __name__ == '__main__':
+    app.run(host="0.0.0.0")
