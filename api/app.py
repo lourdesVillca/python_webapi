@@ -12,7 +12,7 @@ def home():
 @app.route('/containerInfo', methods=['GET'])
 def api_get_info():
     container_information = ContainerInfo()
-    return jsonify(container_information.__dict__)
+    return jsonify(container_information.__dict__), 200
 
 @app.errorhandler(404)
 def page_not_found(e):
