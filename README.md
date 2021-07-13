@@ -1,4 +1,14 @@
 # python_webapi
-Web API with Flask
+PYTHON - REST API with Flask
 
-Steps to 
+##Steps to create the image:
+- Clone the repository
+- Build the docker image
+```
+docker build -t python_webapi:v0.1 .
+```
+- Run the container
+```
+docker run -d --name python_webapi -p 9191:9090 python_webapi:v0.1
+```
+
