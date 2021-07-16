@@ -10,7 +10,7 @@ def home():
     return "<h1>Python Docker Web API</h1><p>Endpoint: /containerInfo</p>"
 
 @app.route('/containerInfo', methods=['GET'])
-def api_get_info():
+def get_container_info():
     container_information = ContainerInfo()
     return jsonify(container_information.__dict__), 200
 
