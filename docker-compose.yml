@@ -1,5 +1,17 @@
 version: "3"
 services:
+  app:
+    build:
+      context: .
+      dockerfile: multistage.Dockerfile
+    ports:
+      - 9393:9090
+    restart: always
+    volumes:
+      - rest-api-src:/src
+    networks:
+      - compose_network
+
   sonarqube:
     image: "sonarqube:latest"
     depends_on:
@@ -54,6 +66,7 @@ volumes:
   postgresql_data:
   jenkins_home:
   nexus-data:
+  rest-api-src:
 
 networks:
   compose_network:
