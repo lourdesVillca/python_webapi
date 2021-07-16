@@ -1,6 +1,8 @@
 version: "3"
 services:
   app:
+    image: docker_compose/python_app:v0.2
+    container_name: python_api
     build:
       context: .
       dockerfile: multistage.Dockerfile
@@ -14,14 +16,16 @@ services:
 
   sonarqube:
     image: "sonarqube:latest"
+    container_name: sonarqube
     depends_on:
       - database
     ports:
       - 9000:9000
+    restart: always
     environment:
-      - SONAR_JDBC_URL: jdbc:postgresql://postgresql:5432/sonarqube-db
-      - SONAR_JDBC_USERNAME: admin
-      - SONAR_JDBC_PASSWORD: admin
+      - SONAR_JDBC_URL=jdbc:postgresql://postgresql:5432/sonarqube-db
+      - SONAR_JDBC_USERNAME=admin
+      - SONAR_JDBC_PASSWORD=admin
     volumes:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_extensions:/opt/sonarqube/extensions
@@ -31,10 +35,12 @@ services:
 
   database:
     image: "postgres:latest"
+    container_name: postgresql
+    restart: always
     environment:
-      - POSTGRES_USER: admin
-      - POSTGRES_PASSWORD: admin
-      - POSTGRES_DB: sonarqube-db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=sonarqube-db
     volumes:
       - postgresql_data:/var/lib/postgresql/data
     networks:
@@ -42,6 +48,7 @@ services:
 
   jenkins:
     image: "jenkins/jenkins:lts-jdk11"
+    container_name: jenkins
     ports:
       - 8080:8080
       - 50000:50000
@@ -52,6 +59,7 @@ services:
 
   nexus:
     image: "sonatype/nexus3:latest"
+    container_name: nexus
     ports:
       - 8081:8081
     volumes:
